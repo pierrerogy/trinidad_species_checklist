@@ -1,4 +1,6 @@
 .Rproj.user
 .Rhistory
-.RData
+.RData*
 .Ruserdata
+data_clean/
+
