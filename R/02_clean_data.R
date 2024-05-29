@@ -386,24 +386,24 @@ communities_clean <-
                                & Species == "sp1",
                                "pupa", stage)) %>% 
   ## We do not really know if non-insects are adults or larva
-  dplyr::mutate(stage = ifelse(Class %in% c("Turbellaria", "CLitellata",
+  dplyr::mutate(stage = ifelse(Class %in% c("Turbellaria", "Clitellata",
                                             "Ostracoda", "Copepoda"),
                                "unknown", stage))
 
 # Double check unique species
-communities_clean2 %>% 
+communities_clean %>% 
   dplyr::select(Class:Species) %>% 
   dplyr::distinct()
 
 # Culicidae and Drosophilidae need Order
-communities_clean2 <- 
+communities_clean <- 
   communities_clean %>% 
   dplyr::mutate(Order = ifelse(Family %in% c("Drosophilidae", "Culicidae") 
                                & !is.na(Family),
                                "Diptera", Order))
 
-## Save
-readr::write_csv(communities,
+# Save
+readr::write_csv(communities_clean,
                  here::here("data_clean",
                             "communities.csv"))
   
