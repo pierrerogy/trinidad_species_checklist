@@ -371,9 +371,14 @@ communities_clean <-
   dplyr::mutate(Genus = ifelse(Family == "Syrphidae" & !is.na(Family) 
                                & Species %in% c("sp1"),
                                "Quichuana", Genus)) %>% 
-  ## Syrphidae sp. 1
-  dplyr::mutate(Species = ifelse(Family == "Syrphidae" & !is.na(Family),
-                                 "sp1", Species)) %>% 
+  ## Copestylum sp. 1
+  dplyr::mutate(Genus = ifelse(Family == "Syrphidae" & !is.na(Family) 
+                               & Species %in% c("sp2", "sp3"),
+                               "Copestylum", Genus)) %>% 
+  dplyr::mutate(Subfamily = ifelse(Genus == "Copestylum" & !is.na(Genus),
+                                 "Eristalinae", Subfamily)) %>% 
+  dplyr::mutate(Species = ifelse(Genus == "Copestylum" & !is.na(Genus),
+                               "sp1", Species)) %>% 
   ## Some Culicidae as unidentified pupae
   dplyr::mutate(Species = ifelse(stringr::str_detect(string = Species,
                                                      pattern = "pupa"),
@@ -406,4 +411,4 @@ communities_clean <-
 readr::write_csv(communities_clean,
                  here::here("data_clean",
                             "communities.csv"))
-  
+
