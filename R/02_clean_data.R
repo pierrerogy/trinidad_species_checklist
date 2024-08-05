@@ -229,6 +229,16 @@ communities_clean <-
                 Species = ifelse(Species %in% c("mystery4", "mystery_4"),
                                "sp1", Species))
 
+# Order Odonata
+communities_clean <- 
+  communities_clean %>% 
+  ## Coenagrionidae sp. 1
+  dplyr::mutate(Family = ifelse(Species == "sp1" & Order == "Odonata",
+                                "Coenagrionidae", Family),
+                Family = ifelse(Species == "sp2" & Order == "Odonata",
+                                "Suborder Anisoptera", Family),
+                Species = ifelse(Family == "Suborder Anisoptera" & !is.na(Family),
+                                "sp1", Species))
 # Order Coleoptera
 communities_clean <- 
   communities_clean %>% 
